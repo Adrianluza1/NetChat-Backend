@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository {
@@ -17,18 +16,11 @@ public class UserRepository {
         users.put(user.getId(), user);
     }
 
-    public void removeUser(String userId) {
-        users.remove(userId);
-    }
-
-    public List<String> getOnlineUsers() {
-        return users.values().stream()
-                .filter(User::isOnline)
-                .map(User::getUsername)
-                .collect(Collectors.toList());
-    }
-
     public User findById(String userId) {
         return users.get(userId);
+    }
+
+    public List<User> getUsers() {
+        return List.copyOf(users.values());
     }
 }
