@@ -1,33 +1,31 @@
 package org.netchat.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+@Controller
 public class ChatHandler extends TextWebSocketHandler {
 
-    private Set<WebSocketSession> sessions = new HashSet<>();
+    private List<WebSocketSession> sessions = new ArrayList<>();
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) {
         sessions.add(session);
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        for (WebSocketSession s : sessions) {
-            if (s.isOpen()) {
-                s.sendMessage(message);
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+        for (WebSocketSession webSocketSession : sessions) {
+            try {
+                webSocketSession.sendMessage(message);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, org.springframework.web.socket.CloseStatus status) throws Exception {
-        sessions.remove(session);
     }
 }

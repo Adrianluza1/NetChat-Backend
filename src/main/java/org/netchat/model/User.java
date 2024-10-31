@@ -2,28 +2,29 @@ package org.netchat.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    private String id;  // UUID como identificador único
-    private String username;
+    private String id;
     private String ipAddress;
-    private String subnetMask;
     private boolean online;
+    private String subnetMask;
+    private String username;
 
-    // Constructor, Getters y Setters
-
-    public User(String id, String username) {
-        this.id = id;
-        this.username = username;
-        this.ipAddress = ipAddress;
-        this.subnetMask = subnetMask;
-        this.online = false;
+    public User(String userId, String username) {
     }
 
-    // Getters y Setters
+    public User(String id, String ipAddress, boolean online, String subnetMask, String username) {
+        this.id = id;
+        this.ipAddress = ipAddress;
+        this.online = online;
+        this.subnetMask = subnetMask;
+        this.username = username;
+    }
 
     public String getId() {
         return id;
@@ -31,14 +32,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getIpAddress() {
@@ -49,6 +42,14 @@ public class User {
         this.ipAddress = ipAddress;
     }
 
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
     public String getSubnetMask() {
         return subnetMask;
     }
@@ -57,11 +58,11 @@ public class User {
         this.subnetMask = subnetMask;
     }
 
-    public boolean isOnline() {
-        return online;
+    public String getUsername() {
+        return username;
     }
 
-    public void setOnline(boolean online) {
-        this.online = online;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

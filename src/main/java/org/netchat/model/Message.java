@@ -1,24 +1,36 @@
 package org.netchat.model;
 
-public class Message {
-    private String sender;
-    private String content;
-    private long timestamp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 
-    // Constructor
-    public Message(String sender, String content, long timestamp) {
-        this.sender = sender;
+@Entity
+public class Message {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String content;
+    private String sender;
+    private LocalDateTime timestamp;
+
+    public Message() {
+    }
+
+    public Message(String content, String sender, LocalDateTime timestamp) {
         this.content = content;
+        this.sender = sender;
         this.timestamp = timestamp;
     }
 
-    // Getters y Setters
-    public String getSender() {
-        return sender;
+    public Long getId() {
+        return id;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -29,11 +41,19 @@ public class Message {
         this.content = content;
     }
 
-    public long getTimestamp() {
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }
